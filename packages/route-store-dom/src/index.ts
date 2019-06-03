@@ -5,6 +5,7 @@ export {
   RouterProvider,
   createRouterContext,
   RouterContext,
+  useRouterContext,
 } from './RouterContext'
 export { navigateOp, restoreNavigateOp } from './operations'
 export { MatchedRoute } from './types'
