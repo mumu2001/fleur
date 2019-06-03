@@ -1,7 +1,6 @@
-import { useFleurContext } from '@fleur/fleur-react'
+import { useRouterContext } from './RouterContext'
 import React, { useCallback, forwardRef } from 'react'
 import { parse } from 'url'
-import { navigateOp } from './operations'
 
 const isRoutable = (href: string | undefined) => {
   const parsed = parse(href || '')
@@ -16,7 +15,7 @@ const isRoutable = (href: string | undefined) => {
 
 export const Link = forwardRef(
   (props: React.AnchorHTMLAttributes<HTMLAnchorElement>, ref) => {
-    const { executeOperation } = useFleurContext()
+    const { history } = useRouterContext()
 
     const handleClick = useCallback(
       (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -27,14 +26,7 @@ export const Link = forwardRef(
         e.preventDefault()
         e.stopPropagation()
 
-        const parsed = parse(props.href!)
-
-        executeOperation(navigateOp, {
-          url:
-            (parsed.pathname || '') +
-            (parsed.query || '') +
-            (parsed.hash || ''),
-        })
+        history.push(props.href!)
       },
       [props.onClick, props.href],
     )

@@ -23,16 +23,13 @@ export const useRouterContext = () => {
 
 export const RouterProvider = ({
   value = createRouterContext(),
+  history = canUseDOM() ? createBrowserHistory({}) : createMemoryHistory({}),
   children,
 }: {
   value?: RouterContext
+  history?: History
   children?: React.ReactNode
 }) => {
-  const history = useMemo(
-    () => (canUseDOM() ? createBrowserHistory({}) : createMemoryHistory({})),
-    [],
-  )
-
   return React.createElement(
     React.Fragment,
     {},
